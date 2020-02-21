@@ -8,7 +8,9 @@
     <link rel="stylesheet" type="text/css" media="screen" href="" />
 </head>
 <body>
-    <h1>Olhar o Console</h1>
+    <h1>Lista Simples </h1>
+
+    <div  id="product"></div>
 
 
     <script>
@@ -38,6 +40,7 @@ Cart.prototype = {
 
  var uva = new Product(1 , "Uva", 8);
  var uvaItem = new CartItem(uva, 5);
+ document.getElementById('product').innerHTML = uva;
 
  var pera = new Product (1, "Pera" , 4);
  var peraItem = new CartItem(pera, 3);
