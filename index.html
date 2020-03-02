@@ -8,10 +8,38 @@
     <link rel="stylesheet" type="text/css" media="screen" href="" />
 </head>
 <body>
-    <h1>Lista Simples </h1>
+    <h1>Market</h1>
 
-    <div  id="product"></div>
+    <section class="container">
 
+        <span id="produtoUm"></span>  <span id="precoUm"></span> <button>Adcionar</button> <p></p>
+        <span id= "produtoDois"></span>   <span id="precoDois"></span> <button>Adcionar</button>
+
+    </section>
+
+
+
+  <table border="1" class="table-container">
+      <thead>
+      <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Preço Unitário</th>
+          <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+    </tbody>
+    <tfoot style="margin: 0 auto;">
+        <td>Total</td>
+    </tfoot>
+  </table>
 
     <script>
         
@@ -19,7 +47,38 @@
       this.id = id;
       this.name = name;
       this.price = price;
-  }
+      
+   }
+     
+   var produto = [];
+
+    function adcionarProduto(id, nome, preco){
+      id= document.getElementById('id').value;
+      nome = document.getElementById('nome').value;
+      preco = document.getElementById('preco').value;
+
+
+
+      produto.push(new Product(id, nome, preco)); 
+     
+      console.log(produto);
+
+      for (var i = 0; i < produto.length; i++) {
+          var element = produto[i].length;
+          if (produto[i].name === name) {
+
+            produto[i].price ++;
+              console.log (produto[i].price)
+          }
+          document.getElementById('lista').innerHTML = produto[i].name;
+      }
+
+
+
+
+    
+    }
+  
  
   function CartItem(product, quantity){
       this.product = product;
@@ -38,16 +97,26 @@ Cart.prototype = {
     calculaTotal: function() { var total = 0; this.items.forEach((item) => total+=item.price); return total}
 }
 
- var uva = new Product(1 , "Uva", 8);
- var uvaItem = new CartItem(uva, 5);
-
- var pera = new Product (1, "Pera" , 4);
- var peraItem = new CartItem(pera, 3);
 
 
+ var bicicleta = new Product(1 , "Bicicleta", 8);
+ var uvaItem = new CartItem(bicicleta, 5);
 
- console.log(uva);
- console.log(uvaItem);
+ document.getElementById('produtoUm').innerHTML= bicicleta.name;
+ document.getElementById('precoUm').innerHTML= bicicleta.price
+
+ var patinete = new Product (2, "Patinete Elétrico" , 4);
+ var patineteItem = new CartItem(patinete, 3);
+
+ document.getElementById('produtoDois').innerHTML= patinete.name;
+ document.getElementById('precoDois').innerHTML= patinete.price;
+
+console.log(Product);
+
+
+
+//  console.log(uva);
+//  console.log(uvaItem);
 
 
         
