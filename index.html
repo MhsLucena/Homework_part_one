@@ -12,14 +12,17 @@
 
     <section class="container">
 
-        <span id="produtoUm"></span>  <span id="precoUm"></span> <button>Adcionar</button> <p></p>
-        <span id= "produtoDois"></span>   <span id="precoDois"></span> <button>Adcionar</button>
+        <span id="produtoUm"></span> R$ <span id="precoUm"></span> 
+        <button  id="btnB" onclick="adicionaProdutoBike('table')" >Adcionar</button> <p></p>
+
+        <span id= "produtoDois"></span>   R$ <span id="precoDois"></span> 
+        <button  id= "btnP" onclick="adicionarProdutoPati('table')" >Adcionar</button>
 
     </section>
 
 
 
-  <table border="1" class="table-container">
+  <table border="1" id="table">
       <thead>
       <tr>
           <th>Produto</th>
@@ -28,15 +31,7 @@
           <th>Subtotal</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-      </tr>
-    </tbody>
-    <tfoot style="margin: 0 auto;">
+    <tfoot >
         <td>Total</td>
     </tfoot>
   </table>
@@ -46,48 +41,97 @@
   function Product(id, name, price){
       this.id = id;
       this.name = name;
-      this.price = price;
+      this.price = parseFloat(price);
       
    }
-     
-   var produto = [];
 
-    function adcionarProduto(id, nome, preco){
-      id= document.getElementById('id').value;
-      nome = document.getElementById('nome').value;
-      preco = document.getElementById('preco').value;
+ var bicicleta = new Product(1 , "Bicicleta", 8);
+ var bicicletaItem = new CartItem(bicicleta, 1);
 
+ document.getElementById('produtoUm').innerHTML= bicicleta.name;
+ document.getElementById('precoUm').innerHTML= bicicleta.price
 
+ var patinete = new Product (2, "Patinete Elétrico" , 4);
+ var patineteItem = new CartItem(patinete, 1);
 
-      produto.push(new Product(id, nome, preco)); 
-     
-      console.log(produto);
+ document.getElementById('produtoDois').innerHTML= patinete.name;
+ document.getElementById('precoDois').innerHTML= patinete.price;
 
-      for (var i = 0; i < produto.length; i++) {
-          var element = produto[i].length;
-          if (produto[i].name === name) {
-
-            produto[i].price ++;
-              console.log (produto[i].price)
-          }
-          document.getElementById('lista').innerHTML = produto[i].name;
-      }
-
-
-
-
-    
-    }
-  
- 
+      
   function CartItem(product, quantity){
       this.product = product;
-      this.quantity = quantity;
-      this.price =  product.price > 1 ? product.price *= 0.95 : product.price *= 1;
+      this.quantity = parseFloat(quantity);
+      this.price = quantity * product.price;
   }
 
 
-  function Cart(items){
+function adicionaProdutoBike(idTabela){
+   
+      var tabela = document.getElementById(idTabela);
+      var numeroLinhas = tabela.rows.length;
+      var linha = tabela.insertRow(numeroLinhas);
+      
+      var cel1 = linha.insertCell(0)
+      var cel2 = linha.insertCell(1)
+      var cel3 = linha.insertCell(2)
+      var cel4 = linha.insertCell(3)
+      var cel5 = linha.insertCell(4)
+
+      document.getElementById('btnB').onclick = function(){
+       cel2.innerHTML =  bicicletaItem.quantity +=1;
+       cel4.innerHTML =  bicicletaItem.quantity * bicicleta.price;
+       console.log(bicicletaItem.price)    
+     }
+
+
+      cel1.innerHTML = bicicleta.name;
+      cel2.innerHTML = bicicletaItem.quantity;
+      cel3.innerHTML = bicicleta.price;
+      cel4.innerHTML = bicicletaItem.price;
+      cel5. innerHTML = "<button onclick= 'removeLinha(this)'>Remover</button>"        
+      
+      
+
+}
+
+function adicionarProdutoPati(idTabela){
+   
+   var tabela = document.getElementById(idTabela);
+   var numeroLinhas = tabela.rows.length;
+   var linha = tabela.insertRow(numeroLinhas);
+   
+   var cel1 = linha.insertCell(0)
+   var cel2 = linha.insertCell(1)
+   var cel3 = linha.insertCell(2)
+   var cel4 = linha.insertCell(3)
+   var cel5 = linha.insertCell(4)
+
+   document.getElementById('btnP').onclick = function(){
+    cel2.innerHTML =  patineteItem.quantity +=1;
+    cel4.innerHTML =  patineteItem.quantity * patinete.price;
+    console.log(patineteItem.price)    
+  }
+
+
+   cel1.innerHTML = patinete.name;
+   cel2.innerHTML = patineteItem.quantity;
+   cel3.innerHTML = patinete.price;
+   cel4.innerHTML = patineteItem.price;
+   cel5. innerHTML = "<button onclick= 'removeLinha(this)'>Remover</button>"        
+   
+   
+
+}
+
+
+
+function removeLinha(linha) {
+              var i=linha.parentNode.parentNode.rowIndex;
+              document.getElementById('table').deleteRow(i);
+            }     
+            
+            
+            function Cart(items){
       this.items = []
   }
 
@@ -97,29 +141,6 @@ Cart.prototype = {
     calculaTotal: function() { var total = 0; this.items.forEach((item) => total+=item.price); return total}
 }
 
-
-
- var bicicleta = new Product(1 , "Bicicleta", 8);
- var uvaItem = new CartItem(bicicleta, 5);
-
- document.getElementById('produtoUm').innerHTML= bicicleta.name;
- document.getElementById('precoUm').innerHTML= bicicleta.price
-
- var patinete = new Product (2, "Patinete Elétrico" , 4);
- var patineteItem = new CartItem(patinete, 3);
-
- document.getElementById('produtoDois').innerHTML= patinete.name;
- document.getElementById('precoDois').innerHTML= patinete.price;
-
-console.log(Product);
-
-
-
-//  console.log(uva);
-//  console.log(uvaItem);
-
-
-        
     </script>
 </body>
 </html>
